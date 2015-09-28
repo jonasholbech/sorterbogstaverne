@@ -11,7 +11,6 @@ var Preloader={
         Preloader.queue.loadManifest([
             {src:"js/Utils.js"},
             {src:"js/Tick.js"},
-            {src:"js/TextDO.js"},
             {src:"js/Controls.js"},
             {src:"js/Letter.js"}
         ]);
