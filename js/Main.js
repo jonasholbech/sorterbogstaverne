@@ -5,6 +5,8 @@ var Main={
     letters:[],
     blueBox:null,
     redBox:null,
+    score:0,
+    wrongAnswers:0,
     init:function(){
         console.log("Main initialized");
         this.stage = new createjs.Stage("canvas");
@@ -16,7 +18,6 @@ var Main={
     },
     setup:function(){
         Preloader.cleanup();
-        Controls.initialize();
 
         createjs.Ticker.setFPS(30);
         createjs.Ticker.on('tick', Tick.tock);
@@ -84,41 +85,95 @@ var Main={
         this.activeLetter.x=x;
         this.activeLetter.y=y;
     },
+    correct:function(e){
+        this.score++;
+        if(this.letters.length>0){
+            var tempLetter=this.letters.pop();
+            tempLetter.origX=e.currentTarget.origX;
+            tempLetter.origY=e.currentTarget.origY;
+
+            createjs.Tween.get(tempLetter).to({x:tempLetter.origX, y:tempLetter.origY, rotation:0}, 1000)
+        }
+        this.stage.removeChild(e.currentTarget)
+        if(this.score>3){
+            this.victory();
+        }
+    },
+    victory:function(){
+        this.stage.removeAllChildren();
+        var data = {
+            images: ["stars.png"],
+            frames: {
+                width: 150,
+                height: 150,
+                regX: 75,
+                regY: 75
+            },
+            animations: {
+                gold: [0],
+                gray:[1]
+            }
+        }
+        var spriteSheet = new createjs.SpriteSheet(data);
+        var goldStars=10-this.wrongAnswers;
+        var grayStars=this.wrongAnswers;
+        if(grayStars>10){
+            grayStars=10;
+        }
+        var t, c=0;
+        var xPos=100;
+        var yPos=150;
+        for(var i =0; i<goldStars; i++){
+            t = new createjs.Sprite(spriteSheet, 'gold');
+            this.stage.addChild(t);
+            t.y=-180;
+            t.x=this.stage.canvas.width/2;
+            t.rotation=Utils.getRandomInt(300, 900);
+            createjs.Tween.get(t).wait(c*300).to({x:xPos, y:yPos, rotation:0},1000)
+            xPos+=150;
+
+            c++;
+            if(c%5==0){
+                yPos+=160;
+                xPos=100;
+            }
+        }
+        for(i=0; i<grayStars; i++){
+            t = new createjs.Sprite(spriteSheet, 'gray');
+            this.stage.addChild(t);
+            t.y=-180;
+            t.x=this.stage.canvas.width/2;
+            t.rotation=Utils.getRandomInt(300, 900);
+            createjs.Tween.get(t).wait(c*300).to({x:xPos, y:yPos, rotation:0},1000)
+            xPos+=150;
+            c++;
+            if(c%5==0){
+                yPos+=160;
+                xPos=100;
+            }
+        }
+    },
+    wrong:function(e){
+        this.wrongAnswers++;
+        createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000)
+    },
     drop:function(e){
-        console.log("drop");
+        var correct=false;
         if(e.stageY>this.stage.canvas.height-200){
-            if(e.stageX<200){
+            if(e.stageX<200 && e.currentTarget.letterType=='v'){
                 //red drop
-                if(e.currentTarget.letterType=='v'){
-                    var tempLetter=this.letters.pop();
-                    tempLetter.origX=e.currentTarget.origX;
-                    tempLetter.origY=e.currentTarget.origY;
+                this.correct(e);
+                correct=true;
 
-                    createjs.Tween.get(tempLetter).to({x:tempLetter.origX, y:tempLetter.origY, rotation:0}, 1000)
-
-                    this.stage.removeChild(e.currentTarget)
-                } else {
-                    createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000)
-
-                }
-            } else if(e.stageX>Main.stage.canvas.width-200){
+            } else if(e.stageX>Main.stage.canvas.width-200 && e.currentTarget.letterType=='k'){
                 //blue drop
-                if(e.currentTarget.letterType=='k'){
-                    var tempLetter=this.letters.pop();
-                    tempLetter.origX=e.currentTarget.origX;
-                    tempLetter.origY=e.currentTarget.origY;
-
-                    createjs.Tween.get(tempLetter).to({x:tempLetter.origX, y:tempLetter.origY, rotation:0}, 1000)
-
-                    this.stage.removeChild(e.currentTarget)
-                } else {
-                    createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000)
-                }
-
+                this.correct(e);
+                correct=true;
             }
 
-        } else {
-            createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000)
+        }
+        if(!correct){
+            this.wrong(e);
         }
     }
 
