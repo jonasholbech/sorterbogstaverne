@@ -6,9 +6,9 @@ var Controls ={
     endTouchX:null,
     endTouchY:null,
     initialize:function(){
-        document.addEventListener('touchstart', Controls.tStart, true);
-        document.addEventListener('touchmove', Controls.tMove, true);
-        document.addEventListener('touchend', Controls.tEnd, true);
+        //document.addEventListener('touchstart', Controls.tStart, true);
+        //document.addEventListener('touchmove', Controls.tMove, true);
+        //document.addEventListener('touchend', Controls.tEnd, true);
     },
     enable:function(){
         Controls._enabled=true;
@@ -18,8 +18,10 @@ var Controls ={
     },
     tStart:function(e){
         var touch = e.touches[0];
+
         Controls.startTouchX=touch.pageX;
         Controls.startTouchY=touch.pageY;
+        //Main.touched(e);
     },
     tMove:function(e){
         e.preventDefault();
@@ -27,6 +29,7 @@ var Controls ={
         Controls.endTouchX=touch.pageX;
         Controls.endTouchY=touch.pageY;
         Main.move(Controls.endTouchX, Controls.endTouchY);
+
     },
     tEnd:function(e){
         /*var dx = Controls.endTouchX - Controls.startTouchX,
