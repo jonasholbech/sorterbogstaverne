@@ -2,7 +2,7 @@
 
 var Preloader={
     queue:null,
-    preloadText: new createjs.Text("LOADING...", "30px Verdana", "#000"),
+    preloadText: new createjs.Text("LOADING...", "30px Comic Sans", "#000"),
     init:function(){
         Preloader.queue = new createjs.LoadQueue();
         Preloader.queue.on('complete', Main.setup, Main);
@@ -12,7 +12,8 @@ var Preloader={
             {src:"js/Utils.js"},
             {src:"js/Tick.js"},
             {src:"js/TextDO.js"},
-            {src:"js/Controls.js"}
+            {src:"js/Controls.js"},
+            {src:"js/Letter.js"}
         ]);
 
 

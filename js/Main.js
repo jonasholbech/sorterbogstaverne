@@ -16,6 +16,10 @@ var Main={
 
         createjs.Ticker.setFPS(30);
         createjs.Ticker.on('tick', Tick.tock);
+        var x = new Letter("A");
+        this.stage.addChild(x)
+        x.x=100;
+        x.y=100;
 
     }
 

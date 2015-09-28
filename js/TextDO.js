@@ -3,7 +3,7 @@
     function TextDO(text, defaults){
         defaults = defaults || {};
         var color = defaults.color || "#fff";
-        var font = defaults.font || "'Black Ops One'";
+        var font = defaults.font || "Comic Sans";
         var size = defaults.size || "18px";
         var x = defaults.x || 0;
         var y = defaults.x || 0;
