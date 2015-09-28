@@ -95,7 +95,7 @@ var Main={
             createjs.Tween.get(tempLetter).to({x:tempLetter.origX, y:tempLetter.origY, rotation:0}, 1000)
         }
         this.stage.removeChild(e.currentTarget)
-        if(this.score>3){
+        if(this.score>28){
             this.victory();
         }
     },
