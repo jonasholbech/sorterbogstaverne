@@ -24,6 +24,17 @@ var Utils = {
         dy*=speed;
         return {dX:dx,dY:dy}
     },
+    shuffleArray:function(ar){
+
+            for (var i = ar.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = ar[i];
+                ar[i] = ar[j];
+                ar[j] = temp;
+            }
+            return ar;
+
+    },
     hitTest:function(rect1, rect2){
         if ( rect1.x >= rect2.x + rect2.width
             || rect1.x + rect1.width <= rect2.x

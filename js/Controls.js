@@ -22,16 +22,18 @@ var Controls ={
         Controls.startTouchY=touch.pageY;
     },
     tMove:function(e){
+        e.preventDefault();
         var touch = e.touches[0];
         Controls.endTouchX=touch.pageX;
         Controls.endTouchY=touch.pageY;
         Main.move(Controls.endTouchX, Controls.endTouchY);
     },
     tEnd:function(e){
-        var dx = Controls.endTouchX - Controls.startTouchX,
+        /*var dx = Controls.endTouchX - Controls.startTouchX,
             dy = Controls.endTouchY - Controls.startTouchY;
         if(Math.abs(dx) > Math.abs(dy)){
             //horizontal
-        }
+        }*/
+        Main.drop(Controls.endTouchX, Controls.endTouchY)
     }
 }

@@ -2,13 +2,15 @@
     function Letter(text, defaults){
         defaults = defaults || {};
         var color = defaults.color || "#000";
-        var font = defaults.font || "Comic Sans";
+        var font = defaults.font || "'Comic Sans'";
         var size = defaults.size || "40px";
         var x = defaults.x || 30;
         var y = defaults.x || 30;
+
         var textAlign = defaults.textAlign || "center";
         var textBaseline = defaults.textBaseline || "middle";
         var c = new createjs.Container();
+        c.regX= c.regY=30;
         var s = new createjs.Shape();
         s.graphics.beginFill('#FFF').drawRect(0,0, 60, 60);
         c.addChild(s);
