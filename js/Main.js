@@ -150,9 +150,14 @@ var Main={
         }
     },
     putBack:function(e){
-        createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000)
+        createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000).call(function(){
+            var c = document.querySelector('canvas');
+            c.classList.remove('shake')
+        })
     },
     wrong:function(e){
+        var c = document.querySelector('canvas');
+        c.classList.add('shake')
         this.wrongAnswers++;
         this.putBack(e);
     },
