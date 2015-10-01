@@ -98,12 +98,12 @@ var Main={
     victory:function(){
         this.stage.removeAllChildren();
         var data = {
-            images: ["stars.png"],
+            images: ["star_sprite.png"],
             frames: {
-                width: 150,
-                height: 150,
-                regX: 75,
-                regY: 75
+                width: 100,
+                height: 100,
+                regX: 50,
+                regY: 50
             },
             animations: {
                 gold: [0],
@@ -118,7 +118,7 @@ var Main={
         }
         var t, c=0;
         var xPos=100;
-        var yPos=150;
+        var yPos=60;
         for(var i =0; i<goldStars; i++){
             t = new createjs.Sprite(spriteSheet, 'gold');
             this.stage.addChild(t);
@@ -129,8 +129,8 @@ var Main={
             xPos+=150;
 
             c++;
-            if(c%5==0){
-                yPos+=160;
+            if(c%6==0){
+                yPos+=130;
                 xPos=100;
             }
         }

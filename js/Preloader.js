@@ -12,7 +12,7 @@ var Preloader={
             {src:"js/Utils.js"},
             {src:"js/Tick.js"},
             {src:"js/Letter.js"},
-            {src:"stars.png"}
+            {src:"star_sprite.png"}
         ]);
 
 
