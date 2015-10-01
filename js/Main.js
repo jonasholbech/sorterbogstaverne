@@ -153,28 +153,39 @@ var Main={
             }
         }
     },
-    wrong:function(e){
-        this.wrongAnswers++;
+    putBack:function(e){
         createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000)
     },
+    wrong:function(e){
+        this.wrongAnswers++;
+        this.putBack(e);
+    },
     drop:function(e){
-        var correct=false;
+        var handled=false;
         if(e.stageY>this.stage.canvas.height-200){
-            if(e.stageX<200 && e.currentTarget.letterType=='v'){
-                //red drop
-                this.correct(e);
-                correct=true;
-
-            } else if(e.stageX>Main.stage.canvas.width-200 && e.currentTarget.letterType=='k'){
-                //blue drop
-                this.correct(e);
-                correct=true;
+            if(e.stageX<200){//red drop
+                handled=true;
+                if(e.currentTarget.letterType=='v') {
+                    this.correct(e);
+                } else {
+                    this.wrong(e);
+                }
             }
 
+            if(e.stageX>Main.stage.canvas.width-200){//blue drop
+                handled=true;
+                if(e.currentTarget.letterType=='k'){
+                    this.correct(e);
+                } else {
+                    this.wrong(e);
+                }
+            }
         }
-        if(!correct){
-            this.wrong(e);
+        if(!handled){
+            this.putBack(e);
         }
+
+
     }
 
 
