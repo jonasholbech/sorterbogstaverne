@@ -149,6 +149,8 @@ var Main={
                 xPos=100;
             }
         }
+        //TODO animate points (store venlige tal på skærmen)
+        //start igen knap
     },
     putBack:function(e){
         createjs.Tween.get(e.currentTarget).to({x:e.currentTarget.origX, y:e.currentTarget.origY, rotation:0}, 1000).call(function(){
