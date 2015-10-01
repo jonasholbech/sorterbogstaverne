@@ -119,6 +119,7 @@ var Main={
         var t, c=0;
         var xPos=100;
         var yPos=60;
+        var starsPerRow=6
         for(var i =0; i<goldStars; i++){
             t = new createjs.Sprite(spriteSheet, 'gold');
             this.stage.addChild(t);
@@ -129,7 +130,7 @@ var Main={
             xPos+=150;
 
             c++;
-            if(c%6==0){
+            if(c%starsPerRow==0){
                 yPos+=130;
                 xPos=100;
             }
@@ -143,7 +144,7 @@ var Main={
             createjs.Tween.get(t).wait(c*300).to({x:xPos, y:yPos, rotation:0},1000)
             xPos+=150;
             c++;
-            if(c%5==0){
+            if(c%starsPerRow==0){
                 yPos+=160;
                 xPos=100;
             }
