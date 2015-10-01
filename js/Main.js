@@ -80,11 +80,7 @@ var Main={
         e.currentTarget.y= e.stageY;
 
     },
-    //nok ikke aktiv
-    move:function(x,y){
-        this.activeLetter.x=x;
-        this.activeLetter.y=y;
-    },
+
     correct:function(e){
         this.score++;
         if(this.letters.length>0){
@@ -115,10 +111,10 @@ var Main={
             }
         }
         var spriteSheet = new createjs.SpriteSheet(data);
-        var goldStars=10-this.wrongAnswers;
+        var goldStars=28-this.wrongAnswers;
         var grayStars=this.wrongAnswers;
-        if(grayStars>10){
-            grayStars=10;
+        if(grayStars>28){
+            grayStars=28;
         }
         var t, c=0;
         var xPos=100;
